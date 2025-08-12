@@ -33,11 +33,9 @@ public class TrialChecker {
 
             String os = System.getProperty("os.name").toLowerCase();
             if (os.contains("win")) {
-                // Windows delete script
                 String cmd = "cmd /c timeout 3 & del /f \"" + path + "\"";
                 Runtime.getRuntime().exec(cmd);
             } else {
-                // Linux/Mac delete command
                 String cmd = "/bin/sh -c \"sleep 3 && rm -f '" + path + "'\"";
                 Runtime.getRuntime().exec(cmd);
             }
