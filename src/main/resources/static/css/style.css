@@ -1,0 +1,202 @@
+:root {
+    --primary-color: #007bff;
+    --primary-dark: #0056b3;
+    --secondary-color: #f0f4f8;
+    --background-color: #f8f9fa;
+    --card-background: #ffffff;
+    --text-color: #343a40;
+    --light-text-color: #6c757d;
+    --border-color: #dee2e6;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    --border-radius: 8px;
+    --padding-small: 10px;
+    --padding-medium: 15px;
+    --padding-large: 20px;
+}
+body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+.page-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: var(--card-background);
+    padding: var(--padding-large) var(--padding-small);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    overflow-y: auto;
+    z-index: 100;
+}
+
+.sidebar h3 {
+    margin-top: 0;
+    text-align: center;
+    color: var(--primary-color);
+    border-bottom: none;
+    padding: 0;
+    font-size: 1.2rem;
+}
+
+.sidebar a {
+    display: block;
+    padding: var(--padding-small);
+    color: var(--primary-color);
+    font-weight: 500;
+    text-decoration: none;
+    margin: 5px 0;
+    border-radius: var(--border-radius);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sidebar a:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-dark);
+}
+
+.main-content {
+    margin-left: 270px;
+    padding: var(--padding-large);
+    flex-grow: 1;
+}
+.header-section {
+    background-color: var(--card-background);
+    padding: var(--padding-large);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: var(--padding-large);
+}
+
+.header-section h2 {
+    color: var(--primary-dark);
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 5px;
+}
+
+.controls-section {
+    background-color: var(--card-background);
+    padding: var(--padding-large);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: var(--padding-large);
+}
+
+.flex-group {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--padding-medium);
+}
+
+.search-input {
+    flex-grow: 1;
+    min-width: 250px;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    height: 40px;
+}
+.search {
+    composes: search-input;
+}
+.search {
+    flex-grow: 1;
+    min-width: 250px;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    height: 40px;
+}
+.viewtable {
+    background-color: var(--card-background);
+    padding: var(--padding-large);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.scrollable-table {
+    max-height: 500px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--card-background);
+}
+
+thead {
+    position: sticky;
+    top: 0;
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 10;
+}
+
+th, td {
+    padding: var(--padding-small);
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    font-weight: 600;
+    background-color: var(--primary-color);
+    color: white;
+}
+@media (max-width: 768px) {
+    .page-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        box-shadow: none;
+        padding: var(--padding-small);
+    }
+
+    .sidebar h3 {
+        display: none;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: var(--padding-medium);
+    }
+
+    .flex-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-input {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .scrollable-table {
+        max-height: 400px;
+        overflow-x: auto;
+    }
+
+    table {
+        min-width: 600px;
+    }
+}

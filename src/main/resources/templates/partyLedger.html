@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Party Ledger</title>
+    <!--    <link rel="stylesheet" th:href="@{/css/style.css}">-->
+</head>
+
+<style>
+    /* CSS Variables for easy customization */
+    :root {
+        --primary-color: #007bff;
+        --primary-dark: #0056b3;
+        --secondary-color: #f0f0f5;
+        --background-color: #f5f5f5;
+        --card-background: #ffffff;
+        --text-color: #333;
+        --light-text-color: #666;
+        --border-color: #e0e0e0;
+        --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        --border-radius: 8px;
+        --padding-small: 10px;
+        --padding-medium: 15px;
+        --padding-large: 20px;
+    }
+
+    /* General Body and Typography */
+    body {
+        font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: var(--background-color);
+        color: var(--text-color);
+        line-height: 1.6;
+    }
+
+    h2, h3 {
+        color: var(--primary-dark);
+        border-bottom: 2px solid var(--primary-color);
+        padding-bottom: 5px;
+        margin-bottom: var(--padding-medium);
+    }
+
+    /* Page Layout */
+    .page-container {
+        display: flex;
+        min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+        width: 250px;
+        background-color: var(--card-background);
+        padding: var(--padding-large) var(--padding-small);
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        overflow-y: auto;
+        z-index: 100;
+    }
+
+    .sidebar h3 {
+        margin-top: 0;
+        text-align: center;
+        color: var(--primary-color);
+        border-bottom: none;
+        padding: 0;
+        font-size: 1.2rem;
+    }
+
+    .sidebar a {
+        display: block;
+        padding: var(--padding-small);
+        color: var(--primary-color);
+        font-weight: 500;
+        text-decoration: none;
+        margin: 5px 0;
+        border-radius: var(--border-radius);
+        transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .sidebar a:hover {
+        background-color: var(--secondary-color);
+        color: var(--primary-dark);
+    }
+
+    /* Main Content Area */
+    .main-content {
+        margin-left: 270px; /* Sidebar width + spacing */
+        padding: var(--padding-large);
+        flex-grow: 1;
+    }
+
+    .addForm, .viewtable {
+        background-color: var(--card-background);
+        padding: var(--padding-large);
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        margin-bottom: var(--padding-large);
+        margin-top: var(--padding-small);
+    }
+
+    /* Form and Filters */
+    .addForm h2 {
+        margin-top: 0;
+    }
+
+    #ledgerForm, .filters, .ledgerForm {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 15px;
+        flex-wrap: wrap;
+        margin-top: var(--padding-medium);
+    }
+
+    .addForm .evenSpace {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    #partySelect, input.search, input.filter, .filters select {
+        padding: 10px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        font-size: 1rem;
+        height: 40px;
+        width: auto;
+        flex-grow: 1;
+        min-width: 150px;
+        box-sizing: border-box;
+    }
+
+    #searchBox {
+        width: 350px;
+        max-width: 100%;
+    }
+
+    .filters label {
+        font-weight: 600;
+        white-space: nowrap;
+        color: var(--light-text-color);
+    }
+
+    .filters-buttons {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+    }
+
+    /* Buttons */
+    button {
+        padding: 10px 15px;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        height: 40px;
+        white-space: nowrap;
+        font-weight: 600;
+        transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    button:hover {
+        background-color: var(--primary-dark);
+        transform: translateY(-1px);
+    }
+
+    button:active {
+        transform: translateY(0);
+    }
+
+    /* Table */
+    .scrollable-table {
+        max-height: 500px;
+        overflow-y: auto;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: var(--card-background);
+    }
+
+    thead {
+        position: sticky;
+        top: 0;
+        background-color: var(--primary-color);
+        color: white;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        z-index: 10;
+    }
+
+    th, td {
+        padding: var(--padding-small);
+        text-align: center;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    th {
+        font-weight: 600;
+        background-color: var(--primary-color);
+        color: white;
+    }
+
+    tfoot td {
+        font-weight: bold;
+        text-align: right;
+        padding: var(--padding-small);
+        border-top: 2px solid var(--primary-dark);
+    }
+
+    tfoot td:first-child {
+        text-align: left;
+    }
+
+    /* Responsiveness */
+    @media (max-width: 992px) {
+        .main-content {
+            margin-left: 270px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .page-container {
+            flex-direction: column;
+        }
+
+        .sidebar {
+            position: relative;
+            width: 100%;
+            height: auto;
+            box-shadow: none;
+            padding: var(--padding-small);
+        }
+
+        .sidebar h3 {
+            display: none; /* Hide menu title on small screens */
+        }
+
+        .main-content {
+            margin-left: 0;
+            padding: var(--padding-medium);
+        }
+
+        #ledgerForm, .filters, .filters-buttons, .evenSpace , .ledgerForm{
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        #partySelect, input.search, input.filter, button {
+            width: 100%;
+            min-width: unset;
+        }
+
+        .scrollable-table {
+            max-height: 400px;
+            overflow-x: auto;
+        }
+
+        table {
+            min-width: 600px; /* Ensure table doesn't get too narrow */
+        }
+    }
+</style>
+
+<body>
+<div class="page-container">
+
+    <div class="sidebar">
+
+        <h3>📘 Menu</h3>
+        <a href="/homePage" id="homePage">Home Page (ESC)</a>
+        <a href="/addParty" id="navAddParty">Add Party (Alt+1)</a>
+        <a href="/viewParty" id="navViewParty">View Party (Alt+2)</a>
+        <a href="/addProduct" id="navAddProduct">Add Product (Alt+3)</a>
+        <a href="/viewProducts" id="navViewProducts">View Products (Alt+4)</a>
+        <a href="/invoice" id="navInvoice">Create Invoice (Alt+5)</a>
+        <a href="/invoiceList" id="navInvoiceList">View Invoices (Alt+6)</a>
+        <a href="/partyLedger" id="navPartyLedger">View Ledger (Alt+7)</a>
+        <a href="/payment" id="navPayment">$ Payment (Alt+8)</a>
+
+
+    </div>
+    <div class="main-content">
+        <section class="addForm evenSpace">
+            <h2>📘 Party Ledger</h2>
+            <form id="ledgerForm">
+                <!-- <div class="evenSpace"> -->
+                <label>Select Party: (Alt+P)</label>
+                <select id="partySelect" name="partyId" required>
+                    <option value="">-- Select Party --</option>
+                </select>
+                <button type="submit" id="showLedgerBtn">🔍 Show Ledger (Alt+L)</button>
+                <!-- </div> -->
+
+            </form>
+
+
+            <div class="ledgerForm">
+                <!-- <div class="button-section"> -->
+                <input  class="search" type="text" id="searchBox" placeholder="🔍 Search by Invoice or Payment...(Alt+S)" />
+
+                <button id="showAll">Show All (Alt+A)</button>
+                <button id="showDebit">Only Debit (Alt+D)</button>
+                <button id="showCredit">Only Credit (Alt+C)</button>
+                <!-- </div> -->
+            </div>
+        </section>
+
+        <h3>Filter by Date</h3>
+        <div class="filters">
+            <label for="startDate">From (Ctrl+F):</label>
+            <input class="filter" type="date" id="startDate">
+
+            <label for="endDate">To (Alt+E):</label>
+            <input class="filter" type="date" id="endDate">
+            <button id="filterBtn">Filter (Alt+F)</button>
+            <button id="clearDateFilter">🔄 Reset (Alt+R)</button>
+        </div>
+
+        <section class="viewtable">
+            <div class="scrollable-table">
+                <table id="ledgerTable">
+                    <thead>
+                    <tr>
+                        <th>Invoice No</th>
+                        <th>Date</th>
+                        <th>Debit</th>
+                        <th>Credit</th>
+                        <!--        <th>Total</th>-->
+                    </tr>
+                    </thead>
+                    <tbody id="ledgerBody"></tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="3">Grand Total</td>
+                        <td id="grandTotalCell">₹ 0.00</td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </section>
+    </div>
+</div>
+</body>
+<script type="text/javascript" th:src="@{/js/partyLedger.js}"></script>
+</html>

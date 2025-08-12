@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <title>Invoice List</title>
+</head>
+<style>
+    /* CSS Variables for easy customization */
+    :root {
+        --primary-color: #007bff;
+        --primary-dark: #0056b3;
+        --secondary-color: #f0f4f8; /* Lighter background for a cleaner look */
+        --background-color: #f8f9fa;
+        --card-background: #ffffff;
+        --text-color: #343a40;
+        --light-text-color: #6c757d;
+        --border-color: #dee2e6;
+        --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        --border-radius: 8px;
+        --padding-small: 10px;
+        --padding-medium: 15px;
+        --padding-large: 20px;
+    }
+
+    /* General Body and Typography */
+    body {
+        font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: var(--background-color);
+        color: var(--text-color);
+        line-height: 1.6;
+    }
+
+    h2, h3 {
+        color: var(--primary-dark);
+        border-bottom: 2px solid var(--primary-color);
+        padding-bottom: 5px;
+        margin-bottom: var(--padding-medium);
+    }
+
+    /* Page Layout */
+    .page-container {
+        display: flex;
+        min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+        width: 250px;
+        background-color: var(--card-background);
+        padding: var(--padding-large) var(--padding-small);
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        overflow-y: auto;
+        z-index: 100;
+    }
+
+    .sidebar h3 {
+        margin-top: 0;
+        text-align: center;
+        color: var(--primary-color);
+        border-bottom: none;
+        padding: 0;
+        font-size: 1.2rem;
+    }
+
+    .sidebar a {
+        display: block;
+        padding: var(--padding-small);
+        color: var(--primary-color);
+        font-weight: 500;
+        text-decoration: none;
+        margin: 5px 0;
+        border-radius: var(--border-radius);
+        transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .sidebar a:hover {
+        background-color: var(--secondary-color);
+        color: var(--primary-dark);
+    }
+
+    /* Main Content Area */
+    .main-content {
+        margin-left: 270px; /* Sidebar width + spacing */
+        padding: var(--padding-large);
+        flex-grow: 1;
+    }
+
+    .header-section, .controls-section, .viewtable {
+        background-color: var(--card-background);
+        padding: var(--padding-large);
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        margin-bottom: var(--padding-large);
+    }
+
+    .flex-group {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: var(--padding-medium);
+    }
+
+    .form-group {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .controls-section .flex-group {
+        justify-content: space-between;
+    }
+
+    .search-input {
+        flex-grow: 1;
+        min-width: 250px;
+        padding: 10px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        font-size: 1rem;
+        height: 40px;
+    }
+
+    .button-group {
+        display: flex;
+        gap: var(--padding-small);
+        flex-wrap: wrap;
+    }
+
+    .filters label {
+        font-weight: 600;
+        white-space: nowrap;
+        color: var(--light-text-color);
+    }
+
+    .filter-input {
+        padding: 10px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        font-size: 1rem;
+        height: 40px;
+        width: auto;
+        flex-grow: 1;
+        min-width: 120px;
+        box-sizing: border-box;
+    }
+
+    select {
+        padding: 10px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        font-size: 1rem;
+        height: 40px;
+        min-width: 150px;
+        box-sizing: border-box;
+    }
+
+    /* Buttons */
+    button {
+        padding: 10px 15px;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        height: 40px;
+        white-space: nowrap;
+        font-weight: 600;
+        transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    button:hover {
+        background-color: var(--primary-dark);
+        transform: translateY(-1px);
+    }
+
+    button:active {
+        transform: translateY(0);
+    }
+
+    /* Table */
+    .scrollable-table {
+        max-height: 500px;
+        overflow-y: auto;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: var(--card-background);
+    }
+
+    thead {
+        position: sticky;
+        top: 0;
+        background-color: var(--primary-color);
+        color: white;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        z-index: 10;
+    }
+
+    th, td {
+        padding: var(--padding-small);
+        text-align: center;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    th {
+        font-weight: 600;
+        background-color: var(--primary-color);
+        color: white;
+    }
+
+    tfoot td {
+        font-weight: bold;
+        text-align: right;
+        padding: var(--padding-small);
+        border-top: 2px solid var(--primary-dark);
+        background-color: var(--secondary-color);
+    }
+
+    tfoot td:first-child {
+        text-align: left;
+    }
+
+    /* Responsiveness */
+    @media (max-width: 992px) {
+        .main-content {
+            margin-left: 270px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .page-container {
+            flex-direction: column;
+        }
+
+        .sidebar {
+            position: relative;
+            width: 100%;
+            height: auto;
+            box-shadow: none;
+            padding: var(--padding-small);
+        }
+
+        .sidebar h3 {
+            display: none;
+        }
+
+        .main-content {
+            margin-left: 0;
+            padding: var(--padding-medium);
+        }
+
+        .flex-group {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .form-group {
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+        }
+        .search-input, .button-group button, .filter-input, #partySelect {
+            width: 100%;
+            min-width: unset;
+        }
+        .button-group {
+            width: 100%;
+        }
+
+        .scrollable-table {
+            max-height: 400px;
+            overflow-x: auto;
+        }
+
+        table {
+            min-width: 600px;
+        }
+    }
+</style>
+<body>
+<div class="page-container">
+
+    <div class="sidebar">
+        <h3>📘 Menu</h3>
+        <a href="/homePage" id="homePage">Home Page (ESC)</a>
+        <a href="/addParty" id="navAddParty">Add Party (Alt+1)</a>
+        <a href="/viewParty" id="navViewParty">View Party (Alt+2)</a>
+        <a href="/addProduct" id="navAddProduct">Add Product (Alt+3)</a>
+        <a href="/viewProducts" id="navViewProducts">View Products (Alt+4)</a>
+        <a href="/invoice" id="navInvoice">Create Invoice (Alt+5)</a>
+        <a href="/invoiceList" id="navInvoiceList">View Invoices (Alt+6)</a>
+        <a href="/partyLedger" id="navPartyLedger">View Ledger (Alt+7)</a>
+        <a href="/payment" id="navPayment">$ Payment (Alt+8)</a>
+    </div>
+
+    <div class="main-content">
+        <header class="header-section">
+            <h2>📋 All Invoices</h2>
+        </header>
+
+        <section class="controls-section">
+            <div class="flex-group">
+                <input class="search-input" type="text" id="searchBox" placeholder="🔍 Search by invoice no or party name...(Alt+S)" />
+                <div class="button-group">
+                    <div class="form-group">
+                        <label for="startDate">From (Ctrl+F):</label>
+                        <input class="filter-input" type="date" id="startDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">To (Alt+E):</label>
+                        <input class="filter-input" type="date" id="endDate">
+                    </div>
+                    <button id="filterBtn">Filter (Alt+F)</button>
+                    <button id="resetBtn">Reset (Ctrl+R)</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="viewtable">
+            <div class="scrollable-table">
+                <table id="invoiceTable">
+                    <thead>
+                    <tr>
+                        <th>Invoice No</th>
+                        <th>Party</th>
+                        <th>Date</th>
+                        <th>Total Amount</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody id="invoiceTableBody"></tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/js/invoiceList.js}"></script>
+</body>
+</html>

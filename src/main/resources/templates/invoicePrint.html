@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+<body>
+<div class="page-controller">
+
+    <div class="sidebar">
+        <a href="/homePage" id="homePage">Home Page (ESC)</a>
+        <a href="/addParty" id="navAddParty">Add Party (Alt+1)</a>
+        <a href="/viewParty" id="navViewParty">View Party (Alt+2)</a>
+        <a href="/addProduct" id="navAddProduct">Add Product (Alt+3)</a>
+        <a href="/viewProducts" id="navViewProducts">View Products (Alt+4)</a>
+        <a href="/invoice" id="navInvoice">Create Invoice (Alt+5)</a>
+        <a href="/invoiceList" id="navInvoiceList">View Invoices (Alt+6)</a>
+        <a href="/partyLedger" id="navPartyLedger">View Ledger (Alt+7)</a>
+        <a href="/payment" id="navPayment">$ Payment (Alt+8)</a>
+
+</div>
+
+    <div class="main-content">
+    <header class="header-section">
+<h2>🧾 Invoice</h2>
+    </header>
+        <section class="controls-section">
+            <div class="flex-group">
+<p><strong>Invoice No:</strong> <span id="invoiceNumber">N/A</span></p>
+<p><strong>Party:</strong> <span id="partyName">N/A</span></p>
+<p><strong>Date:</strong> <span id="invoiceDate">N/A</span></p>
+            </div>
+        </section>
+<section class="viewtable">
+    <div class="scrollable-table">
+<table id="printSection">
+    <thead>
+    <tr>
+        <th>Product</th>
+        <th>Qty</th>
+        <th>Rate</th>
+        <th>Total</th>
+    </tr>
+    </thead>
+    <tbody id="itemTableBody"></tbody>
+    <tfoot>
+    <tr>
+        <td><strong>Total Quantity</strong></td>
+        <td><strong id="totalQty">0</strong></td>
+        <td><strong id="totalRate">0</strong></td>
+        <td id="grandTotal">₹ 0.00</td>
+    </tr>
+    </tfoot>
+</table>
+    </div>
+</section>
+<button id="printButton">🖨️ Print Invoice (Alt+P)</button>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/js/invoicePrint.js}"></script>
+</body>
+</html>

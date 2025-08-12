@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <title>View Parties</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Link to your updated CSS file -->
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div class="page-container">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h3>📘 Menu</h3>
+        <a href="/homePage" id="homePage">Home Page (ESC)</a>
+        <a href="/addParty" id="navAddParty">Add Party (Alt+1)</a>
+        <a href="/viewParty" id="navViewParty">View Party (Alt+2)</a>
+        <a href="/addProduct" id="navAddProduct">Add Product (Alt+3)</a>
+        <a href="/viewProducts" id="navViewProducts">View Products (Alt+4)</a>
+        <a href="/invoice" id="navInvoice">Create Invoice (Alt+5)</a>
+        <a href="/invoiceList" id="navInvoiceList">View Invoices (Alt+6)</a>
+        <a href="/partyLedger" id="navPartyLedger">View Ledger (Alt+7)</a>
+        <a href="/payment" id="navPayment">$ Payment (Alt+8)</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <!-- Header -->
+        <header class="header-section">
+            <h2>📋 Party List</h2>
+        </header>
+
+        <!-- Controls -->
+        <section class="controls-section">
+            <div class="flex-group">
+                <input type="text" id="partySearch" class="search-input" placeholder="🔍 Search by name, phone or email...(Alt+S)" />
+            </div>
+        </section>
+
+        <!-- Table -->
+        <section class="viewtable">
+            <div class="scrollable-table">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody id="partyList"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Optional Update Form -->
+        <div id="updateFormContainer"></div>
+
+    </div>
+</div>
+
+<!-- JavaScript (Functionality remains unchanged) -->
+<script type="text/javascript" th:src="@{/js/party.js}"></script>
+</body>
+</html>
