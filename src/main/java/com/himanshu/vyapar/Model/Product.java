@@ -37,13 +37,7 @@ public class Product {
                 '}';
     }
 
-    public Product(Long id, String name, double price, String description, Party party) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.description = description;
-        this.party = party;
-    }
+
 
     public Long getId() {
         return id;

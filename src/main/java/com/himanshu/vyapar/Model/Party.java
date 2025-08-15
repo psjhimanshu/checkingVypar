@@ -41,16 +41,7 @@ public class Party {
                 '}';
     }
 
-    public Party(Long id, String name, PartyType type, String gstNumber, String phone, String email, String address, String blockedStatus) {
-        this.id = id;
-        this.name = name;
-        this.type = type;
-        this.gstNumber = gstNumber;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.blockedStatus = blockedStatus;
-    }
+
 
     public Long getId() {
         return id;

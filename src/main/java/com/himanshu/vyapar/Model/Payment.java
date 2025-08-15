@@ -37,13 +37,6 @@ public class Payment {
                 '}';
     }
 
-    public Payment(Long id, LocalDateTime dateTime, Party party, String paymentNumber, double amount) {
-        this.id = id;
-        this.dateTime = dateTime;
-        this.party = party;
-        this.paymentNumber = paymentNumber;
-        Amount = amount;
-    }
 
     public Long getId() {
         return id;
