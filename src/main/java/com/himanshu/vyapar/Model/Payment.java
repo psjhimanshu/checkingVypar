@@ -36,9 +36,7 @@ public class Payment {
                 ", Amount=" + Amount +
                 '}';
     }
-public Payment(){
 
-}
     public Payment(Long id, LocalDateTime dateTime, Party party, String paymentNumber, double amount) {
         this.id = id;
         this.dateTime = dateTime;

@@ -32,9 +32,7 @@ public class Invoice {
     @OneToMany(mappedBy = "invoice",cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<InvoiceItem> items;
-public Invoice(){
 
-}
 
     @Override
     public String toString() {
