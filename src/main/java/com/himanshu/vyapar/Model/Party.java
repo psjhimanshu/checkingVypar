@@ -27,4 +27,94 @@ public class Party {
     private String address;
     private String blockedStatus;
 
+    @Override
+    public String toString() {
+        return "Party{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type=" + type +
+                ", gstNumber='" + gstNumber + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", blockedStatus='" + blockedStatus + '\'' +
+                '}';
+    }
+public Party(){
+
+}
+    public Party(Long id, String name, PartyType type, String gstNumber, String phone, String email, String address, String blockedStatus) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.gstNumber = gstNumber;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.blockedStatus = blockedStatus;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public PartyType getType() {
+        return type;
+    }
+
+    public void setType(PartyType type) {
+        this.type = type;
+    }
+
+    public String getGstNumber() {
+        return gstNumber;
+    }
+
+    public void setGstNumber(String gstNumber) {
+        this.gstNumber = gstNumber;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getBlockedStatus() {
+        return blockedStatus;
+    }
+
+    public void setBlockedStatus(String blockedStatus) {
+        this.blockedStatus = blockedStatus;
+    }
 }

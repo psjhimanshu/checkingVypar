@@ -25,4 +25,65 @@ public class Payment {
     @Column(unique = true)
     private String paymentNumber;
     private double Amount;
+
+    @Override
+    public String toString() {
+        return "Payment{" +
+                "id=" + id +
+                ", dateTime=" + dateTime +
+                ", party=" + party +
+                ", paymentNumber='" + paymentNumber + '\'' +
+                ", Amount=" + Amount +
+                '}';
+    }
+public Payment(){
+
+}
+    public Payment(Long id, LocalDateTime dateTime, Party party, String paymentNumber, double amount) {
+        this.id = id;
+        this.dateTime = dateTime;
+        this.party = party;
+        this.paymentNumber = paymentNumber;
+        Amount = amount;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public Party getParty() {
+        return party;
+    }
+
+    public void setParty(Party party) {
+        this.party = party;
+    }
+
+    public String getPaymentNumber() {
+        return paymentNumber;
+    }
+
+    public void setPaymentNumber(String paymentNumber) {
+        this.paymentNumber = paymentNumber;
+    }
+
+    public double getAmount() {
+        return Amount;
+    }
+
+    public void setAmount(double amount) {
+        Amount = amount;
+    }
 }

@@ -33,6 +33,31 @@ public class InvoiceItem {
     private double taxRate;
     private double total;
 
+    @Override
+    public String toString() {
+        return "InvoiceItem{" +
+                "id=" + id +
+                ", date=" + date +
+                ", invoice=" + invoice +
+                ", product=" + product +
+                ", quantity=" + quantity +
+                ", rate=" + rate +
+                ", taxRate=" + taxRate +
+                ", total=" + total +
+                '}';
+    }
+
+    public InvoiceItem(Long id, LocalDateTime date, Invoice invoice, Product product, int quantity, double rate, double taxRate, double total) {
+        this.id = id;
+        this.date = date;
+        this.invoice = invoice;
+        this.product = product;
+        this.quantity = quantity;
+        this.rate = rate;
+        this.taxRate = taxRate;
+        this.total = total;
+    }
+
     public LocalDateTime getDate() {
         return date;
     }
