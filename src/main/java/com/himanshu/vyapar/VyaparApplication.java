@@ -17,6 +17,5 @@ public class VyaparApplication {
 //		openBrowser("http://localhost:8080");
 	}
 
-
 }
 //vyapar-0.0.1-snapshot.jar
