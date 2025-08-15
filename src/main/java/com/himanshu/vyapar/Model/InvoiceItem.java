@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 @Builder
 public class InvoiceItem {
 
