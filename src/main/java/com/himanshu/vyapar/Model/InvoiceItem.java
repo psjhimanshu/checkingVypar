@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @NoArgsConstructor
-//@AllArgsConstructor
+@AllArgsConstructor
 @Builder
 public class InvoiceItem {
 
@@ -47,16 +47,16 @@ public class InvoiceItem {
                 '}';
     }
 
-    public InvoiceItem(Long id, LocalDateTime date, Invoice invoice, Product product, int quantity, double rate, double taxRate, double total) {
-        this.id = id;
-        this.date = date;
-        this.invoice = invoice;
-        this.product = product;
-        this.quantity = quantity;
-        this.rate = rate;
-        this.taxRate = taxRate;
-        this.total = total;
-    }
+//    public InvoiceItem(Long id, LocalDateTime date, Invoice invoice, Product product, int quantity, double rate, double taxRate, double total) {
+//        this.id = id;
+//        this.date = date;
+//        this.invoice = invoice;
+//        this.product = product;
+//        this.quantity = quantity;
+//        this.rate = rate;
+//        this.taxRate = taxRate;
+//        this.total = total;
+//    }
 
     public LocalDateTime getDate() {
         return date;

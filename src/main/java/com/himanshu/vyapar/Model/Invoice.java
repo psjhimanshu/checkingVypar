@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
-//@AllArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Invoice {
 
@@ -46,14 +46,7 @@ public class Invoice {
                 '}';
     }
 
-    public Invoice(Long id, LocalDateTime date, Party party, String invoiceNumber, double totalAmount, List<InvoiceItem> items) {
-        this.id = id;
-        this.date = date;
-        this.party = party;
-        this.invoiceNumber = invoiceNumber;
-        this.totalAmount = totalAmount;
-        this.items = items;
-    }
+
 
     public Long getId() {
         return id;
